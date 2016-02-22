@@ -1,0 +1,25 @@
+<h1> Recipe Finder</h1>
+<h4> Searching for <%= @search_term %></h4>
+<%= form_tag("/", method: "get") do %>
+  <%= label_tag(:search, "Search for:") %>
+  <%= text_field_tag(:search) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+
+<table border="1" class="bordered highlight responsive-table">
+  <tr>
+    <th></th>
+    <th>Image</th>
+    <th>Recipe Title</th>
+    <th>Social rank</th>
+  </tr>
+  <% @recipes.each_with_index do |recipe, i| %>
+    <tr class=<%= cycle('even', 'odd') %>>
+      <td class='num'><%= format("%5d", i+1) %></td>
+      <td><a href="<%= recipe["f2f_url"] %>"><%= image_tag(recipe["image_url"], size:"100") %></a></td>
+      <td><a href="<%= recipe["f2f_url"] %>"><%= sanitize recipe["title"] %></a></td>
+      <td><%= format("%.2f",recipe["social_rank"]) %></td>
+    </tr>
+  <% end %>
+/table>
